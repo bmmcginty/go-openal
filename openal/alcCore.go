@@ -111,7 +111,7 @@ type Device struct {
 }
 
 func (self *Device) getError() uint32 {
-	return uint32(C.alcGetError((*C.struct_ALCdevice_struct)(unsafe.Pointer(self.handle))))
+	return uint32(C.alcGetError((*C.ALCdevice)(unsafe.Pointer(self.handle))))
 }
 
 // Err() returns the most recent error generated
@@ -147,8 +147,8 @@ func OpenDevice(name string) *Device {
 	return &Device{uintptr((unsafe.Pointer)(h))}
 }
 
-func (self *Device) cHandle() *C.struct_ALCdevice_struct {
-	return (*C.struct_ALCdevice_struct)(unsafe.Pointer(self.handle))
+func (self *Device) cHandle() *C.ALCdevice {
+	return (*C.ALCdevice)(unsafe.Pointer(self.handle))
 }
 
 func (self *Device) CloseDevice() bool {
@@ -268,8 +268,8 @@ type Context struct {
 // details).
 var NullContext Context
 
-func (self *Context) cHandle() *C.struct_ALCcontext_struct {
-	return (*C.struct_ALCcontext_struct)(unsafe.Pointer(self.handle))
+func (self *Context) cHandle() *C.ALCcontext {
+	return (*C.ALCcontext)(unsafe.Pointer(self.handle))
 }
 
 // Renamed, was MakeContextCurrent.
